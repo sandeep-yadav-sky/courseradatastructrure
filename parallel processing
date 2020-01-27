@@ -1,0 +1,63 @@
+/* SANDEEP YADAv*/
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+#define pb push_back
+#define mkp make_pair
+#define fi first
+#define se second
+#define mod 1000000007
+#define fastio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+lld gcd(lld a,lld b){ if(a<b) { a=a+b; b=a-b; a=a-b;}while(b!=0){lld r=a%b; a=b; b=r;} return a;}
+long long power(long long a, long long b, long long m) {a %= m;long long res = 1;while (b > 0) {if (b & 1)res = res * a % m;a = a * a % m;b >>= 1;}return res;}
+void judge()
+{
+      #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    freopen("error.txt","w",stderr);
+    #endif
+}
+struct st
+{
+    lld thredno,threadtime;
+};
+
+struct  compare
+{
+    bool operator()(st s1,st s2)
+    {
+        if(s1.threadtime!=s2.threadtime)
+            return s1.threadtime>s2.threadtime;
+        return s1.thredno>s2.thredno;
+    }
+};
+priority_queue<st,vector<st>,compare>pq;
+
+int main()
+{   
+   fastio;
+   //judge();
+
+    lld n,m;
+    cin>>n>>m;
+
+    st ob;
+    for(lld i=0;i<n;i++)
+    {
+        ob.thredno=i;
+        ob.threadtime=0;
+        pq.push(ob);
+    }
+    for(lld i=0;i<m;i++)
+    {
+        lld processtime;
+        cin>>processtime;
+        ob=pq.top();
+        pq.pop();
+        cout<<ob.thredno<<" "<<ob.threadtime<<"\n";
+        ob.threadtime=ob.threadtime+processtime;
+        pq.push(ob);
+    }
+    return 0;
+}
