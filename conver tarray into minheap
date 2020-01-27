@@ -1,0 +1,44 @@
+/* SANDEEP YADAv*/
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+#define pb push_back
+
+int n;
+vector<int>ans;
+void heapify(int a[],int i)
+{
+    int l=2*i+1;
+    int r=2*i+2;
+    int min=i;
+    if(l<n&&a[l]<a[min])
+        min=l;
+    if(r<n&&a[r]<a[min])
+        min=r;
+    if(min!=i)
+    {
+        swap(a[i],a[min]);
+        ans.pb(i);
+        ans.pb(min);
+        heapify(a,min);
+    }
+}
+int main()
+{ 
+    cin>>n;
+
+    int a[n];
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+
+    for(int i=ceil(1.0*n/2.0)-1;i>=0;i--)
+    {
+        heapify(a,i);
+    }    
+    cout<<ans.size()/2<<"\n";
+    for(int i=0;i<ans.size();i+=2)
+    {
+        cout<<ans[i]<<" "<<ans[i+1]<<"\n";
+    }
+    return 0;
+}
